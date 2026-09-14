@@ -1,5 +1,5 @@
 // actividad1_2.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// https://github.com/supercoolname123/tc1031
 
 //Gerardo Alberto Garay - A01564643
 #include <iostream>
@@ -34,6 +34,12 @@ void swap(int& a, int& b) {
     b = temp;
 }
 
+// Ordena en forma ascendente los elementos de un vector utilizando el metodo de intercambio
+// Parametros:
+//   v: vector de enteros a ordenar
+// Retorno: ninguno (el vector se modifica por referencia)
+// Complejidad: O(n^2) en el peor y en el caso promedio, ya que compara cada
+// elemento contra todos los que le siguen
 void ordenaIntercambio(std::vector<int>& v) {
     for (int i = 0; i < v.size(); i++) {
         for (int j = i; j < v.size(); j++) {
@@ -44,6 +50,12 @@ void ordenaIntercambio(std::vector<int>& v) {
     }
 }
 
+// Ordena en forma ascendente los elementos de un vector utilizando el metodo de burbuja
+// Parametros:
+//   v: vector de enteros a ordenar
+// Retorno: ninguno (el vector se modifica por referencia)
+// Complejidad: O(n^2) en el peor y en el caso promedio, al comparar elementos
+// adyacentes en pasadas repetidas sobre el vector
 void ordenaBurbuja(std::vector<int>& v) {
     for (int i = 0; i < v.size(); i++) {
         for (int j = 0; j < v.size() - 1 - i; j++) {
@@ -54,7 +66,8 @@ void ordenaBurbuja(std::vector<int>& v) {
     }
 }
 
-std::vector<int> ordenaMergeNotInPlace(std::vector<int>& v, int left, int right) {
+//primer intento
+/*std::vector<int> ordenaMergeNotInPlace(std::vector<int>& v, int left, int right) {
     std::vector<int> resultado;
     if (left < right) {
         int middle = (right + left) / 2;
@@ -96,7 +109,7 @@ std::vector<int> ordenaMergeNotInPlace(std::vector<int>& v, int left, int right)
         resultado[0] = v[left];
     }
     return resultado;
-}
+}*/
 
 std::vector<int> copyElementsFromVector(std::vector<int>& source, int start, int end) {
     std::vector<int> target(end - start);
@@ -108,6 +121,12 @@ std::vector<int> copyElementsFromVector(std::vector<int>& source, int start, int
     return target;
 }
 
+// Ordena en forma ascendente los elementos de un vector utilizando el metodo de merge sort
+// Parametros:
+//   v: vector de enteros a ordenar
+// Retorno: ninguno (el vector se modifica por referencia)
+// Complejidad: O(n log n) en todos los casos, ya que divide el vector en
+// log n niveles y combina n elementos en cada nivel
 void ordenaMerge(std::vector<int>& v) {
     std::vector<int> resultado;
     if (v.size() > 1) {
@@ -155,6 +174,12 @@ void ordenaMerge(std::vector<int>& v) {
     v = resultado;
 }
 
+//Busca un valor dentro de un vector recorriendolo elemento por elemento
+// Parametros:
+//   v: vector de enteros donde se realiza la busqueda
+//   target: valor entero que se desea encontrar
+// Retorno: indice donde se encuentra el valor, o -1 si no se encuentra
+// Complejidad: O(n) en el peor caso, ya que puede recorrer todo el vector
 int busqSecuencial(std::vector<int>& v, int target) {
     for (int i = 0; i < v.size(); i++) {
         if (v[i] == target) {
@@ -164,7 +189,18 @@ int busqSecuencial(std::vector<int>& v, int target) {
     return -1;
 }
 
+// Busca un valor dentro de un vector ordenado dividiendo repetidamente el espacio de busqueda a la mitad
+// Parametros:
+//   v: vector de enteros ordenado en forma ascendente donde se realiza la busqueda
+//   target: valor entero que se desea encontrar
+// Retorno: indice donde se encuentra el valor, o -1 si no se encuentra
+// Complejidad: O(log n) en el peor caso, ya que descarta la mitad del espacio de busqueda en cada iteracion
 int busqBinaria(std::vector<int>& v, int target) {
+    if (v.size() == 1) {
+        return 0 ? v[0] == target : -1;
+    }
+    else if (v.size() == 0) { return -1; }
+
     int center = v.size() / 2;
     int left = 0;
     int right = v.size() - 1;
