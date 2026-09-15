@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <string>
+#include "Entry.h"
 
 std::string read_file(std::string path_file) {
     std::ifstream accessed_file(path_file);
@@ -29,7 +30,9 @@ std::string read_file(std::string path_file) {
 int main()
 {
     std::string file = read_file("bitacora.txt");
-    
+    Entry e("Oct 9 10:32:24 423.2.230.77:6166 Failed password for illegal user guest");
+
+    std::cout << e.get_full_entry() << "\n" << e.get_comparable();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
