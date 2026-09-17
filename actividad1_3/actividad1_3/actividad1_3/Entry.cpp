@@ -1,7 +1,7 @@
 #include "Entry.h"
 #include <sstream>
 
-int Entry::month_to_int(std::string month) {
+const int Entry::month_to_int(std::string month) {
     if (month == "Jan") {
         return 1;
     }
@@ -71,7 +71,7 @@ Entry::Entry(std::string new_entry)
 
 
 
-int Entry::get_comparable()
+const int Entry::get_comparable()
 {
     return comparable;
 }

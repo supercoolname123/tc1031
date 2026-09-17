@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include <fstream>
+#include <ostream>
 #include <string>
 #include <vector>
 #include "Entry.h"
@@ -143,11 +144,15 @@ std::vector<Entry*> filter_by_range(std::vector<Entry*>& v, int start, int end) 
     int closest_to_start = binary_search(v, start);
     int closest_to_end = binary_search(v, end);
 
-    if (!is_in_range(v[closest_to_start]->get_comparable(), start, end)) {
+    if (closest_to_start == closest_to_end) {
+        return {};
+    }
+
+    while (!is_in_range(v[closest_to_start]->get_comparable(), start, end)) {
         closest_to_start++;
     }
-    if (!is_in_range(v[closest_to_end]->get_comparable(), start, end)) {
-        closest_to_end++;
+    while (!is_in_range(v[closest_to_end]->get_comparable(), start, end)) {
+        closest_to_end--;
     }
 
     return copy_elements_from_vector(v, closest_to_start, closest_to_end+1);
@@ -186,19 +191,14 @@ int get_input_date() {
     return date;
 }
 
-int main()
-{
-    std::vector<Entry*> all_entries = create_list_of_entries_from_file("bitacora.txt");
-    merge_sort(all_entries);
-   
-    int start_date = 0;
-    int end_date = 0;
+void get_input_range_in_place(int& start_date, int& end_date) {
     bool valid_range = false;
+    const int FULL_DAY_MINUS_A_SECOND = 1000000 - 1;
     while (!valid_range) {
         std::cout << "===== Fecha inicial =====\n";
         start_date = get_input_date();
         std::cout << "=====  Fecha final  =====\n";
-        end_date = get_input_date();
+        end_date = get_input_date() + FULL_DAY_MINUS_A_SECOND;
 
         if (end_date > start_date) {
             valid_range = true;
@@ -207,12 +207,40 @@ int main()
             std::cout << "Rango no valido, la fecha final debe de ser posterior a la inicial. \n";
         }
     }
+}
+
+void print_vector(std::vector<Entry*> v) {
+    for (int i = 0; i < v.size(); i++) {
+        std::cout << v[i]->get_full_entry() << std::endl;
+    }
+}
+
+void save_vector_to_file(std::vector<Entry*> v) {
+    std::ofstream file("bitacora_ordenada.txt");
+
+    for (int i = 0; i < v.size(); i++) {
+        file << v[i]->get_full_entry() << "\n";
+    }
+
+    file.close();
+}
+
+int main()
+{
+    std::vector<Entry*> all_entries = create_list_of_entries_from_file("bitacora.txt");
+    merge_sort(all_entries);
+   
+    int start_date = 0;
+    int end_date = 0;
+    get_input_range_in_place(start_date, end_date);
 
     std::vector<Entry*> filtered_entries = filter_by_range(all_entries, start_date, end_date);
+    
+    print_vector(filtered_entries);
+    save_vector_to_file(all_entries);
 
-    for (int i = 0; i < filtered_entries.size(); i++) {
-        std::cout << filtered_entries[i]->get_full_entry() << std::endl;
-    }
+    std::cout << "Se encontraron " << filtered_entries.size() << " resultados. \n";
+    std::cout << "La lista ordenada se ha guardado en un archivo .txt \n";
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
