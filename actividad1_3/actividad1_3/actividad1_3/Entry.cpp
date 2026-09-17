@@ -1,7 +1,7 @@
 #include "Entry.h"
 #include <sstream>
 
-int month_to_int(std::string month) {
+int Entry::month_to_int(std::string month) {
     if (month == "Jan") {
         return 1;
     }

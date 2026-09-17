@@ -13,6 +13,8 @@ private:
 public:
 	Entry(std::string);
 
+	static int month_to_int(std::string);
+	static int create_comparable(std::string);
 	int get_comparable();
 	std::string get_full_entry();
 };
