@@ -1,5 +1,8 @@
 #include "Entry.h"
 #include <sstream>
+#include <fstream>
+#include <iostream>
+
 
 const int Entry::month_to_int(std::string month) {
     if (month == "Jan") {
@@ -69,8 +72,6 @@ Entry::Entry(std::string new_entry)
     comparable = create_comparable();
 }
 
-
-
 const int Entry::get_comparable()
 {
     return comparable;
@@ -79,4 +80,21 @@ const int Entry::get_comparable()
 std::string Entry::get_full_entry()
 {
     return month + " " + day + " " + time + " " + ip + " " + message;
+}
+
+std::vector<Entry*> create_vector_of_entries_from_file(std::string file_path) {
+    std::vector<Entry*> list = {};
+    std::ifstream accessed_file(file_path);
+
+    if (!accessed_file.is_open()) {
+        std::cerr << "Error: Could not open the file!" << std::endl;
+    }
+
+    std::string line;
+    while (std::getline(accessed_file, line)) {
+        list.push_back(new Entry(line));
+    }
+
+    accessed_file.close();
+    return list;
 }

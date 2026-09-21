@@ -13,15 +13,6 @@ void printVector(std::vector<int>& v) {
     std::cout << "end\n";
 }
 
-bool isSorted(std::vector<int>& v) {
-    int last = 0;
-    for (int i = 0; i < v.size(); i++) {
-        if (v[i] < last) return false;
-        last = v[i];
-    }
-    return true;
-}
-
 void assert(bool success, std::string message) {
     if (!success) {
         throw std::runtime_error(message);

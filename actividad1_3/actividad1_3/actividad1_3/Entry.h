@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 class Entry {
 private:
 	int comparable;
@@ -18,3 +19,5 @@ public:
 	const int get_comparable();
 	std::string get_full_entry();
 };
+
+std::vector<Entry*> create_vector_of_entries_from_file(std::string);
