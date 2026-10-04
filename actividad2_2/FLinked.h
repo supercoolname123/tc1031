@@ -6,22 +6,60 @@ template<class T>
 struct node {
 	node<T>* next;
 	T data;
-};
 
+	node(T _data) {
+		data = _data;
+		next = NULL;
+	}
+};
 
 template<class T>
 class FLinked
 {
+private:
+	bool isEmpty() { return first == NULL; }
+	int size;
+
+	void createAtStart(T data) {
+		node<T>* temp = new node<T>(data);
+		temp->next = first;
+		first = temp;
+		size++;
+	}
+
+	node<T>* walkToIndexOrLast(int index) {
+		int i = 0;
+		node<T>* temp = first;
+		while (temp->next != NULL && i < index) {
+			i++;
+			temp = temp->next;
+		}
+		return temp;
+	}
+
+	void validateIndexIsNotNegative(int index) {
+		if (index < 0) {
+			throw "(FLinked): Indice Invalido. i es negativo.";
+		}
+	}
+
+	void validateIndexIsWhitinSize(int index) {
+		if (index >= 0 || index < size) {
+			throw "(FLinked): Indice Invalido. i no esta dentro de la lista.";
+		}
+	}
+	
 public:
 	node<T>* first;
 	FLinked<T>() {
 		first = NULL;
+		size = 0;
 	}
 
-	void update(int pos, T data)
+	void update(int index, T data)
 	{
 		node<T>* temp = first;
-		for (int i = 0; i < pos; i++)
+		for (int i = 0; i < index; i++)
 		{
 			temp = temp->next;
 		}
@@ -52,34 +90,22 @@ public:
 
 	}
 
-	void create(T data, int pos)
+	void create(int index, T data)
 	{
-		node<T>* newNode = new node<T>;
-		newNode->data = data;
-		newNode->next = NULL;
+		validateIndexIsNotNegative(index);
 
-		if (first == NULL) {
-			first = newNode;
-			return;
-		}
-		else if (pos == 0) {
-			newNode->next = first;
-			first = newNode;
+		if (isEmpty() || index == 0) {
+			createAtStart(data);
 			return;
 		}
 
-		node<T>* prev = first;
-		node<T>* curr = first->next;
+		node<T>* prev = walkToIndexOrLast(index - 1);
+		node<T>* next = prev->next;
 
-		int i = 1;
-		while (curr != NULL && i < pos) {
-			i++;
-			prev = curr;
-			curr = curr->next;
-		}
-
-		prev->next = newNode;
-		newNode->next = curr;
+		node<T>* temp = new node<T>(data);
+		prev->next = temp;
+		temp->next = next;
+		size++;
 	}
 
 	T operator[](int index)
@@ -87,7 +113,7 @@ public:
 		return read(index);
 	}
 
-	void del(int pos) {
+	void del(int index) {
 		node<T>* curr = first;
 
 		if (curr == NULL) {
@@ -95,7 +121,7 @@ public:
 			return;
 		}
 
-		if (pos == 0) {
+		if (index == 0) {
 			node<T>* temp = first;
 			first = first->next;
 			delete temp;
@@ -111,7 +137,7 @@ public:
 			return;
 		}
 
-		while (nx->next != NULL && i < pos) {
+		while (nx->next != NULL && i < index) {
 			curr = nx;
 			nx = nx->next;
 			i++;
@@ -119,6 +145,17 @@ public:
 		curr->next = nx->next;
 		delete nx;
 		return;
+	}
+
+	void printList() {
+		node<T>* curr = first;
+
+		std::cout << "n: " << size << "\t";
+		while (curr != NULL) {
+			std::cout << curr->data << " -> ";
+			curr = curr->next;
+		}
+		std::cout << std::endl;
 	}
 };
 
