@@ -27,6 +27,13 @@ private:
 		size++;
 	}
 
+	void deleteAtStart() {
+		node<T>* temp = first;
+		first = first->next;
+		delete temp;
+		size--;
+	}
+
 	node<T>* walkToIndexOrLast(int index) {
 		int i = 0;
 		node<T>* temp = first;
@@ -44,8 +51,15 @@ private:
 	}
 
 	void validateIndexIsWhitinSize(int index) {
-		if (index >= 0 || index < size) {
+		bool whitinSize = index >= 0 && index < size;
+		if (!whitinSize) {
 			throw "(FLinked): Indice Invalido. i no esta dentro de la lista.";
+		}
+	}
+
+	void validateListIsNotEmpty() {
+		if (isEmpty()) {
+			throw "(FLinked): Lista vacia.";
 		}
 	}
 	
@@ -58,36 +72,20 @@ public:
 
 	void update(int index, T data)
 	{
-		node<T>* temp = first;
-		for (int i = 0; i < index; i++)
-		{
-			temp = temp->next;
-		}
+		validateIndexIsWhitinSize(index);
+		validateListIsNotEmpty();
+
+		node<T>* temp = walkToIndexOrLast(index);
 		temp->data = data;
 	}
 
 	T read(int index)
 	{
-		if (index < 0) { //indice fuera de rango
-			throw ("Indice debe ser >= 0");
-		}
-		else if (index == 0) {
-			if (first == NULL) { //checa si existe la lista
-				throw ("La lista no existe");
-			}
-			return this->first->data;
-		}
+		validateIndexIsWhitinSize(index);
+		validateListIsNotEmpty();
 
-		node<T>* curr = first;
-		for (int i = 0; i < index; i++) {
-			curr = curr->next;
-
-			if (curr == NULL) {
-				throw ("Indice fuera de rango, intente un indice mas pequeño");
-			}
-		}
-		return curr->data;
-
+		node<T>* temp = walkToIndexOrLast(index);
+		return temp->data;
 	}
 
 	void create(int index, T data)
@@ -114,37 +112,21 @@ public:
 	}
 
 	void del(int index) {
-		node<T>* curr = first;
-
-		if (curr == NULL) {
-			cout << "Lista vacia" << endl;
-			return;
-		}
-
+		validateIndexIsWhitinSize(index);
+		validateListIsNotEmpty();
+		
 		if (index == 0) {
-			node<T>* temp = first;
-			first = first->next;
-			delete temp;
+			deleteAtStart();
 			return;
 		}
 
-		node<T>* nx = curr->next;
-		int i = 1;
-
-		if (nx == NULL) {
-			delete curr;
-			first = NULL;
-			return;
-		}
-
-		while (nx->next != NULL && i < index) {
-			curr = nx;
-			nx = nx->next;
-			i++;
-		}
-		curr->next = nx->next;
-		delete nx;
-		return;
+		node<T>* prev = walkToIndexOrLast(index - 1);
+		node<T>* curr = prev->next;
+		node<T>* next = curr->next;
+		
+		prev->next = next;
+		delete curr;
+		size--;
 	}
 
 	void printList() {
