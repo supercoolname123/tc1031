@@ -35,6 +35,8 @@ private:
 	}
 
 	node<T>* walkToIndexOrLast(int index) {
+		validateIndexIsNotNegative(index);
+
 		int i = 0;
 		node<T>* temp = first;
 		while (temp->next != NULL && i < index) {
@@ -72,8 +74,8 @@ public:
 
 	void update(int index, T data)
 	{
-		validateIndexIsWhitinSize(index);
 		validateListIsNotEmpty();
+		validateIndexIsWhitinSize(index);
 
 		node<T>* temp = walkToIndexOrLast(index);
 		temp->data = data;
@@ -81,8 +83,8 @@ public:
 
 	T read(int index)
 	{
-		validateIndexIsWhitinSize(index);
 		validateListIsNotEmpty();
+		validateIndexIsWhitinSize(index);
 
 		node<T>* temp = walkToIndexOrLast(index);
 		return temp->data;

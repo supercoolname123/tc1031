@@ -141,9 +141,12 @@
   <ItemGroup>
     <ClCompile Include="FLinked.cpp" />
     <ClCompile Include="S6Ptr.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FLinked.h" />
+    <ClInclude Include="S6Ptr.h" />
+    <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="todo.md">
