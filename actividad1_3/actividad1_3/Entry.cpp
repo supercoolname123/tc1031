@@ -46,15 +46,36 @@ const int Entry::month_to_int(std::string month) {
     }
 }
 
-int Entry::create_comparable()
+double Entry::create_comparable()
 {
-    int _month = month_to_int(month);
-    int _day = std::stoi(day);
-    int _hour = std::stoi(time.substr(0, 2));
-    int _minute = std::stoi(time.substr(3, 2));
-    int _second = std::stoi(time.substr(6, 2));
+    std::istringstream _ip(ip);
 
-    return _second + _minute*100 + _hour*10000 + _day*1000000 + _month*100000000;
+    std::string temp = "";
+    double temp_comparable = 0;
+    int counter = 1;
+    while (std::getline(_ip, temp, '.')) {
+        if (counter == 1) {
+            temp_comparable += std::stoi(temp) * 1000000000ll;
+        }
+        else if (counter == 2) {
+            temp_comparable += std::stoi(temp) * 1000000ll;
+        }
+        else if (counter == 3) {
+            temp_comparable += std::stoi(temp) * 1000ll;
+        }
+        else if (counter == 4) {
+            std::string before_two_dots = "";
+            for (int i = 0; i < temp.size(); i++) {
+                if (temp[i] == ':') 
+                { break; }
+                before_two_dots += temp[i];
+
+            }
+            temp_comparable += std::stoi(before_two_dots);
+        }
+        counter++;
+    }
+    return temp_comparable;
 }
 
 Entry::Entry(std::string new_entry)
@@ -72,7 +93,7 @@ Entry::Entry(std::string new_entry)
     comparable = create_comparable();
 }
 
-const int Entry::get_comparable()
+const double Entry::get_comparable()
 {
     return comparable;
 }

@@ -5,17 +5,7 @@ void App::run()
     std::vector<Entry*> all_entries = create_vector_of_entries_from_file("bitacora.txt");
     Sort::merge_sort(all_entries);
 
-    int start_date = 0;
-    int end_date = 0;
-    get_input_range_in_place(start_date, end_date);
-
-    std::vector<Entry*> filtered_entries = Search::filter_by_range(all_entries, start_date, end_date);
-
-    print_vector(filtered_entries);
-    save_vector_to_file(all_entries, "bitacora_ordenada.txt");
-
-    std::cout << "Se encontraron " << filtered_entries.size() << " resultados. \n";
-    std::cout << "La lista ordenada se ha guardado en un archivo .txt \n";
+    print_vector(all_entries);
 }
 
 int App::get_input_date() {
