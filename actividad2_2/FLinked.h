@@ -114,8 +114,8 @@ public:
 	}
 
 	void del(int index) {
-		validateIndexIsWhitinSize(index);
 		validateListIsNotEmpty();
+		validateIndexIsWhitinSize(index);
 		
 		if (index == 0) {
 			deleteAtStart();
