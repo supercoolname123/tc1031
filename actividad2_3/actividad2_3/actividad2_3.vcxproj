@@ -141,8 +141,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\actividad1_3\actividad1_3\App.cpp" />
     <ClCompile Include="..\..\actividad1_3\actividad1_3\Entry.cpp" />
-    <ClCompile Include="..\..\actividad1_3\actividad1_3\Search.cpp" />
-    <ClCompile Include="..\..\actividad1_3\actividad1_3\Sort.cpp" />
     <ClCompile Include="..\..\actividad1_3\actividad1_3\Test.cpp" />
     <ClCompile Include="actividad2_3.cpp" />
   </ItemGroup>
