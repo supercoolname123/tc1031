@@ -2,10 +2,11 @@
 //
 
 #include <iostream>
+#include "TreeTest.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    TreeTest::main();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
