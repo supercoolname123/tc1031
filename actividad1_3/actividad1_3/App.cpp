@@ -3,9 +3,21 @@
 void App::run()
 {
     std::vector<Entry*> all_entries = create_vector_of_entries_from_file("bitacora.txt");
-    Sort::merge_sort(all_entries);
-
+    
+    Sort::merge_sort(all_entries, [](Entry* e) {return e->get_comparable();});
     print_vector(all_entries);
+
+    IP start_ip =  IP();
+    IP end_ip =  IP();
+    get_input_ip_range_in_place(start_ip, end_ip);
+
+    std::vector<Entry*> filtered_entries = Search::filter_by_range(all_entries, start_ip, end_ip, [](Entry* e) { return e->get_comparable(); });
+
+    print_vector(filtered_entries);
+    save_vector_to_file(all_entries, "bitacora_ordenada.txt");
+
+    std::cout << "Se encontraron " << filtered_entries.size() << " resultados. \n";
+    std::cout << "La lista ordenada se ha guardado en un archivo .txt \n";
 }
 
 int App::get_input_date() {
@@ -55,6 +67,43 @@ void App::get_input_range_in_place(int& start_date, int& end_date) {
         }
         else {
             std::cout << "Rango no valido, la fecha final debe de ser posterior a la inicial. \n";
+        }
+    }
+}
+
+IP App::get_input_ip()
+{
+    std::string input_ip = "";
+
+    while (input_ip == "") {
+        std::cout << "Ejemplo de formato: 17.205.2.34\n";
+        std::cout << "Ingrese la IP (XXX.XXX.XXX.XXX): ";
+        std::getline(std::cin, input_ip);
+
+        try {
+            return IP(input_ip);
+        }
+        catch (const std::exception& e) {
+            input_ip = "";
+            std::cout << "Intente de nuevo. " << e.what() << "\n";
+        }
+    }
+}
+
+void App::get_input_ip_range_in_place(IP& start, IP& end)
+{
+    bool valid_range = false;
+    while (!valid_range) {
+        std::cout << "===== IP inicial =====\n";
+        start = get_input_ip();
+        std::cout << "=====  IP final  =====\n";
+        end = get_input_ip();
+
+        if (end >= start) {
+            valid_range = true;
+        }
+        else {
+            std::cout << "Rango no valido, la IP final debe de ser posterior o igual a la inicial. \n";
         }
     }
 }

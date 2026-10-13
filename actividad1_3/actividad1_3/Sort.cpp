@@ -1,6 +1,8 @@
+#pragma once
 #include "Sort.h"
 
-void Sort::merge_sort(std::vector<Entry*>& v) {
+template <typename T>
+void Sort::merge_sort(std::vector<T*>& v) {
     if (v.size() <= 1) {
         return;
     }
@@ -50,14 +52,15 @@ void Sort::merge_sort(std::vector<Entry*>& v) {
     v = resultado;
 }
 
-std::vector<Entry*> Sort::copy_elements_from_vector(std::vector<Entry*>& source, int start, int end) {
-    std::vector<Entry*> target(end - start);
+template <typename T>
+std::vector<T*> Sort::copy_elements_from_vector(std::vector<T*>& source, int start, int end) {
+    std::vector<T*> target(end - start);
     int k = 0;
     for (int i = start; i < end; i++) {
         target[k] = source[i];
         k++;
     }
-    return target;
+    return target;S
 }
 
 

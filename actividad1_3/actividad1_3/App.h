@@ -17,6 +17,10 @@ public:
 private:
 	int get_input_date();
 	void get_input_range_in_place(int&, int&);
+
+	IP get_input_ip();
+	void get_input_ip_range_in_place(IP&, IP&);
+
 	void print_vector(std::vector<Entry*>);
 	void save_vector_to_file(std::vector<Entry*>, std::string);
 };
