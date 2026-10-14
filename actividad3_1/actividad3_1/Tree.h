@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <vector>
+#include <string>
 
 class TreeNode
 {
@@ -87,7 +89,8 @@ private:
 		postorderHelper(node->getRightNode());
 		std::cout << node->getData() << " ";
 	}
-
+	void levelByLevelHelper(TreeNode* node, std::vector<std::string>&, int level);
+	
 	template <typename process>
 	void processInorderHelper(TreeNode* node, process run) {
 		if (node == nullptr) {
@@ -122,6 +125,7 @@ public:
 	void postorderTraversal() {
 		postorderHelper(root);
 	}
+	void levelByLevelTraversal();
 
 	void visit(int);
 	int height();

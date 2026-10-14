@@ -23,18 +23,7 @@ private:
     }
 public:
 	static void main() {
-        Tree* tree = new Tree();
-        int value = 0;
-
-        std::cout << "Inserting the following values: ";
-
-        // insert 10 random integers from 0-99 in tree
-        for (int i = 1; i <= 10; i++) {
-            value = (int)(std::rand() * 100);
-            std::cout << value << " ";
-
-            tree->insertNode(value);
-        }
+        Tree* tree = generateRandomTree(10);
 
         // perform preorder traveral of tree
         std::cout << "\n\nPreorder traversal\n";
@@ -74,6 +63,15 @@ public:
         std::cout << std::endl;
         std::cout << "tree->height(): " << tree->height() << "\n";
         std::cout << "max height found: " << maxHeight << "\n";
+    }
+
+    static void TestLevelByLevel() {
+        Tree* tree = generateRandomTree(100);
+
+        tree->levelByLevelTraversal();
+
+        std::cout << "\n\nInorder processing of WhatLevelIAm\n";
+        tree->processInorder([&](int n) { std::cout << n << ", " << tree->whatLevelAmI(n) << "\n"; });
     }
 };
 
