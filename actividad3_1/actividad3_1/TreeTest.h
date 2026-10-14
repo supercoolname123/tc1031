@@ -68,6 +68,7 @@ public:
     static void TestLevelByLevel() {
         Tree* tree = generateRandomTree(100);
 
+        std::cout << std::endl;
         tree->levelByLevelTraversal();
 
         std::cout << "\n\nInorder processing of WhatLevelIAm\n";

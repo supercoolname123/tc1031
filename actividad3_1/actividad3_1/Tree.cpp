@@ -1,14 +1,12 @@
 #include "Tree.h"
-
+const int LEVEL_OF_ROOT = 0;
 
 void Tree::levelByLevelTraversal()
 {
-	const int LEVEL_OF_ROOT = 1;
-	std::vector<std::string> levels	= { std::string("") };
-
+	std::vector<std::string> levels	= {};
 	levelByLevelHelper(root, levels, LEVEL_OF_ROOT);
 
-	for (int i = LEVEL_OF_ROOT; i < levels.size(); i++) {
+	for (int i = 0; i < levels.size(); i++) {
 		std::cout << i << ". " << levels[i] << std::endl;
 	}
 }
@@ -24,7 +22,6 @@ void Tree::levelByLevelHelper(TreeNode* node, std::vector<std::string>& v, int l
 	levelByLevelHelper(node->getRightNode(), v, level + 1);
 }
 
-
 void Tree::visit(int method)
 {
 	if (method < 1 && method > 4) {
@@ -38,7 +35,7 @@ int Tree::height()
 }
 int Tree::heightHelper(TreeNode* node)
 {
-	if (isEmpty(node)) return 0;
+	if (isEmpty(node)) return -1;
 	int leftHeight = heightHelper(node->getLeftNode());
 	int rightHeight = heightHelper(node->getRightNode());
 	
@@ -58,7 +55,7 @@ int Tree::whatLevelAmI(int data)
 int Tree::whatLevelAmIHelper(int data, TreeNode* current)
 {
 	if (isEmpty(current)) { return -1; }
-	if (current->getData() == data) { return 1; }
+	if (current->getData() == data) { return LEVEL_OF_ROOT; }
 
 	int result = 0;
 	if (data < current->getData()) {
