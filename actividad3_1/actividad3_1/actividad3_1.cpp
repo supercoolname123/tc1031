@@ -6,7 +6,7 @@
 
 int main()
 {
-    TreeTest::whatLevelIAm();
+    TreeTest::TestHeight();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

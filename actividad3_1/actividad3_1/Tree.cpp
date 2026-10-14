@@ -37,13 +37,21 @@ int Tree::whatLevelAmIHelper(int data, TreeNode* current)
 	if (isEmpty(current)) { return -1; }
 	if (current->getData() == data) { return 1; }
 
-	int leftResult = whatLevelAmIHelper(data, current->getLeftNode());
-	if (leftResult != -1) { return leftResult + 1; }
+	int result = 0;
+	if (data < current->getData()) {
+		result = whatLevelAmIHelper(data, current->getLeftNode());
+	}
+	else {
+		result = whatLevelAmIHelper(data, current->getRightNode());
+	}
 
-	int rightResult = whatLevelAmIHelper(data, current->getRightNode());
-	if (rightResult != -1) { return rightResult + 1; }
-
-	return -1;
+	if (result != -1) 
+	{ 
+		return result + 1; 
+	}
+	else { 
+		return result; 
+	}
 }
 
 
