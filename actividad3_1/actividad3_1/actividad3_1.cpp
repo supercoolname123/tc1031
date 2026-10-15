@@ -6,7 +6,11 @@
 
 int main()
 {
-    TreeTest::TestLevelByLevel();
+    TreeTest* t = new TreeTest();
+    t->seed = 30035;
+    t->numberOfNodes = 10;
+
+    t->FullTesting();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

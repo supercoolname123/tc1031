@@ -55,41 +55,16 @@ class Tree
 private:
 	TreeNode* root;
 	
-	static bool isEmpty(TreeNode* node) {
-		return node == nullptr;
-	}
+	static bool isEmpty(TreeNode*);
 
-	static int heightHelper(TreeNode*);
-	static int whatLevelAmIHelper(int, TreeNode*);
+	int heightHelper(TreeNode*);
+	int whatLevelAmIHelper(int, TreeNode*);
+	bool ancestorsHelper(int, TreeNode*, std::vector<int>&);
 
-	void preorderHelper(TreeNode* node) {
-		if (isEmpty(node)) {
-			return;
-		}
-
-		std::cout << node->getData() << " ";
-		preorderHelper(node->getLeftNode());
-		preorderHelper(node->getRightNode());
-	}
-	void inorderHelper(TreeNode* node) {
-		if (isEmpty(node)) {
-			return;
-		}
-
-		inorderHelper(node->getLeftNode());
-		std::cout << node->getData() << " ";
-		inorderHelper(node->getRightNode());
-	}
-	void postorderHelper(TreeNode* node) {
-		if (isEmpty(node)) {
-			return;
-		}
-
-		postorderHelper(node->getLeftNode());
-		postorderHelper(node->getRightNode());
-		std::cout << node->getData() << " ";
-	}
-	void levelByLevelHelper(TreeNode* node, std::vector<std::string>&, int level);
+	void preorderHelper(TreeNode*);
+	void inorderHelper(TreeNode*);
+	void postorderHelper(TreeNode*);
+	void levelByLevelHelper(TreeNode*, std::vector<std::string>&, int);
 	
 	template <typename process>
 	void processInorderHelper(TreeNode* node, process run) {
@@ -106,25 +81,11 @@ public:
 		root = nullptr;
 	}
 
-	void insertNode (int insertValue) {
-		if (isEmpty(root)) {
-			root = new TreeNode(insertValue);
-		}
-		else
-		{
-			root->insert(insertValue);
-		}
-	}
+	void insertNode(int insertValue);
 
-	void preorderTraversal() {
-		preorderHelper(root);
-	}
-	void inorderTraversal() {
-		inorderHelper(root);
-	}
-	void postorderTraversal() {
-		postorderHelper(root);
-	}
+	void preorderTraversal();
+	void inorderTraversal();
+	void postorderTraversal();
 	void levelByLevelTraversal();
 
 	void visit(int);
