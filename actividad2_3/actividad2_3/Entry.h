@@ -1,23 +1,44 @@
 #pragma once
 #include <string>
 #include <vector>
+
+class IP {
+private:
+	int octeto1;
+	int octeto2;
+	int octeto3;
+	int octeto4;
+
+	static bool is_octeto_valid(int);
+public:
+	IP();
+	IP(std::string unparsed);
+	static bool is_ip_valid(IP*);
+	const std::string getFullIP();
+
+	const bool operator<(const IP& other) const;
+	const bool operator==(const IP& other) const;
+	const bool operator>(const IP& other) const;
+	const bool operator>=(const IP& other) const;
+	const bool operator<=(const IP& other) const;
+	const bool operator!=(const IP& other) const;
+};
+
 class Entry {
 private:
-	int comparable;
+	std::string full_entry;
 	std::string month;
 	std::string day;
 	std::string time;
-	std::string ip;
+	IP* ip;
 	std::string message;
-
-	int create_comparable();
 public:
 	Entry(std::string);
 
 	const static int month_to_int(std::string);
-	static int create_comparable(std::string);
-	const int get_comparable();
 	std::string get_full_entry();
+
+	IP get_comparable() { return *ip; }
 };
 
 std::vector<Entry*> create_vector_of_entries_from_file(std::string);

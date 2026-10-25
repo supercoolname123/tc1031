@@ -19,5 +19,7 @@ private:
 	void get_input_range_in_place(int&, int&);
 	void print_vector(std::vector<Entry*>);
 	void save_vector_to_file(std::vector<Entry*>, std::string);
+	IP* get_input_ip();
+	void get_input_ip_range_in_place(IP& start, IP& end);
 };
 

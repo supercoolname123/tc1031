@@ -139,20 +139,20 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\actividad1_3\actividad1_3\App.cpp" />
-    <ClCompile Include="..\..\actividad1_3\actividad1_3\Entry.cpp" />
-    <ClCompile Include="..\..\actividad1_3\actividad1_3\Test.cpp" />
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="Entry.cpp" />
+    <ClCompile Include="Test.cpp" />
     <ClCompile Include="actividad2_3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\actividad1_3\actividad1_3\App.h" />
-    <ClInclude Include="..\..\actividad1_3\actividad1_3\Entry.h" />
-    <ClInclude Include="..\..\actividad1_3\actividad1_3\Search.h" />
-    <ClInclude Include="..\..\actividad1_3\actividad1_3\Sort.h" />
-    <ClInclude Include="..\..\actividad1_3\actividad1_3\Test.h" />
+    <ClInclude Include="App.h" />
+    <ClInclude Include="Entry.h" />
+    <ClInclude Include="Search.h" />
+    <ClInclude Include="Sort.h" />
+    <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\actividad1_3\actividad1_3\bitacora.txt" />
+    <Text Include="bitacora.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
